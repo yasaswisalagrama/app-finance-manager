@@ -4,7 +4,20 @@
 
 The project follows a modular structure for easy management and scalability. Here's an overview:
 
-finance-manager-backend/ │── app/ # All application logic goes here │ ├── main.py # FastAPI app entry point │ ├── database.py # MongoDB database connection │ ├── models.py # MongoDB document models for User and Transaction │ ├── schemas.py # Pydantic models for request/response validation │ ├── crud.py # Functions for interacting with the database │ ├── utils.py # Utility functions (e.g., password hashing, JWT) │ ├── routes/ # All API route files │ │ ├── auth.py # Authentication routes (Login, Register) │ │ ├── transactions.py # Transaction routes (Add, View transactions) │── .env # Environment variables (DB connection, secret keys) │── requirements.txt # Python dependencies │── README.md # Project overview and setup instructions
+finance-manager-backend/
+│── app/
+│   ├── main.py               # Entry point for FastAPI
+│   ├── database.py           # Database connection
+│   ├── models.py             # SQLAlchemy models
+│   ├── schemas.py            # Pydantic schemas
+│   ├── crud.py               # Database operations
+│   ├── routes/
+│   │   ├── auth.py           # Authentication routes
+│   │   ├── transactions.py   # Expense/Income routes
+│   ├── utils.py              # Helper functions (e.g., hashing passwords)
+│── .env                      # Environment variables
+│── requirements.txt
+│── README.md
 
 
 ### **Explanation**:
