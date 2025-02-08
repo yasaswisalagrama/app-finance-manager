@@ -4,6 +4,7 @@
 
 The project follows a modular structure for easy management and scalability. Here's an overview:
 
+
 finance-manager-backend/
 │── app/
 │   ├── main.py               # Entry point for FastAPI
