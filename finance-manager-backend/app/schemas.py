@@ -1,7 +1,12 @@
 from typing import Optional
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 from datetime import datetime
+from enum import Enum
+from sqlalchemy import Column, String
 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
 # Base schema (common fields)
 class UserBase(BaseModel):
     username: str
@@ -33,12 +38,31 @@ class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
+     
+#Transactions Models
+class TransactionType(str, Enum):
+    INCOME = "income"
+    EXPENSE = "expense"
+
+# Enum for Transaction Categories
+class TransactionCategory(str, Enum):
+    FOOD = "Food"
+    TRANSPORT = "Transport"
+    BILLS = "Bills"
+    ENTERTAINMENT = "Entertainment"
+    SHOPPING = "Shopping"
+    SALARY = "Salary"
+    INVESTMENT = "Investment"
+    OTHER = "Other"
+
 # Base model (shared fields)
 class TransactionBase(BaseModel):
     amount: float
-    category: str
+    category: TransactionCategory
+    type: TransactionType # Required field to indicate income/expense
     description: Optional[str] = None
 
+    #model_config = ConfigDict(arbitrary_types_allowed=True)
 # Create transaction (request body)
 class TransactionCreate(TransactionBase):
     pass
@@ -47,12 +71,12 @@ class TransactionCreate(TransactionBase):
 class TransactionUpdate(TransactionBase):
     pass
 
-# Response model (including ID & timestamps)
-class Transaction(TransactionBase):
+# Response model (includes ID & timestamps)
+class TransactionResponse(TransactionBase):
     id: int
     user_id: int
     created_at: datetime
     updated_at: datetime
 
     class Config:
-        orm_mode = True  # This allows conversion from SQLAlchemy objects
+        orm_mode = True

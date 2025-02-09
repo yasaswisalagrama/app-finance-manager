@@ -6,17 +6,17 @@ import uvicorn
 from fastapi.openapi.utils import get_openapi
 from app.router import router  # Centralized router
 from app.database import get_db, engine, Base
+from app.routes import auth
 
 # Initialize FastAPI app
 app = FastAPI()
 
-Base.metadata.drop_all(bind=engine)
+#Base.metadata.drop_all(bind=engine)
 # Create tables if they don't exist
 Base.metadata.create_all(bind=engine)
 
 # Include the centralized router
 app.include_router(router)
-
 
 @app.get("/")
 def test_db(db: Session = Depends(get_db)):

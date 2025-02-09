@@ -1,6 +1,8 @@
-from sqlalchemy import Column, ForeignKey, Integer, Numeric, String, DateTime, func
+from sqlalchemy import Column, Enum, ForeignKey, Integer, Numeric, String, DateTime, func
 from app.database import Base
 from sqlalchemy.orm import relationship
+
+from app.schemas import TransactionCategory
 
 class User(Base):
     __tablename__ = "users"
@@ -22,7 +24,8 @@ class Transaction(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     amount = Column(Numeric(10, 2), nullable=False)  # Supports decimals
     category = Column(String, nullable=False)  # e.g., "Food", "Salary"
-    type = Column(String, nullable=False)  # "income" or "expense"
+    type = Column(Enum("income", "expense", name="transaction_type"), nullable=False)  # Restricts to valid values
     created_at = Column(DateTime, server_default=func.now())
-
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    description = Column(String, nullable=True)
     user = relationship("User", back_populates="transactions")

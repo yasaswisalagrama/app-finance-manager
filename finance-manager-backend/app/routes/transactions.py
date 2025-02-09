@@ -3,6 +3,9 @@ from sqlalchemy.orm import Session
 from app import crud, schemas, database
 from typing import List
 
+from app.dependencies import get_current_user
+from app.models import User
+
 router = APIRouter()
 
 # Dependency to get the database session
@@ -13,27 +16,33 @@ def get_db():
     finally:
         db.close()
 
-# 🟢 CREATE Transaction
-@router.post("/", response_model=schemas.Transaction)
-def create_transaction(transaction: schemas.TransactionCreate, db: Session = Depends(get_db), user_id: int = 1):
+# 🔴 CREATE a transaction
+@router.post("/", response_model=schemas.TransactionResponse)
+def create_transaction(
+    transaction: schemas.TransactionCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+    user_id: int = 1,  # ⛔ Fix: This should ideally come from authentication, not as a default
+):
     return crud.create_transaction(db=db, transaction=transaction, user_id=user_id)
 
 # 🔵 READ all transactions for a user
-@router.get("/", response_model=List[schemas.Transaction])
-def get_transactions(user_id: int, db: Session = Depends(get_db), skip: int = 0, limit: int = 10):
-    return crud.get_transactions(db=db, user_id=user_id, skip=skip, limit=limit)
+@router.get("/", response_model=List[schemas.TransactionResponse])
+def get_transactions(user_id: int, db: Session = Depends(get_db),current_user: User = Depends(get_current_user), skip: int = 0, limit: int = 10):
+    transactions = crud.get_transactions(db=db, user_id=user_id, skip=skip, limit=limit)
+    return transactions  # ✅ Ensures Pydantic serialization
 
 # 🟡 READ a single transaction
-@router.get("/{transaction_id}", response_model=schemas.Transaction)
-def get_transaction(transaction_id: int, db: Session = Depends(get_db)):
+@router.get("/{transaction_id}", response_model=schemas.TransactionResponse)
+def get_transaction(transaction_id: int,current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     transaction = crud.get_transaction(db=db, transaction_id=transaction_id)
     if not transaction:
         raise HTTPException(status_code=404, detail="Transaction not found")
-    return transaction
+    return transaction  # ✅ Ensures correct response model
 
 # 🟠 UPDATE Transaction
-@router.put("/{transaction_id}", response_model=schemas.Transaction)
-def update_transaction(transaction_id: int, transaction_update: schemas.TransactionUpdate, db: Session = Depends(get_db)):
+@router.put("/{transaction_id}", response_model=schemas.TransactionResponse)
+def update_transaction(transaction_id: int, transaction_update: schemas.TransactionUpdate,current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     updated_transaction = crud.update_transaction(db=db, transaction_id=transaction_id, transaction_update=transaction_update)
     if not updated_transaction:
         raise HTTPException(status_code=404, detail="Transaction not found")
@@ -41,7 +50,7 @@ def update_transaction(transaction_id: int, transaction_update: schemas.Transact
 
 # 🔴 DELETE Transaction
 @router.delete("/{transaction_id}")
-def delete_transaction(transaction_id: int, db: Session = Depends(get_db)):
+def delete_transaction(transaction_id: int,current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     deleted_transaction = crud.delete_transaction(db=db, transaction_id=transaction_id)
     if not deleted_transaction:
         raise HTTPException(status_code=404, detail="Transaction not found")
