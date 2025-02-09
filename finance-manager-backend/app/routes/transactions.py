@@ -1,3 +1,4 @@
+import json
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app import crud, schemas, database
@@ -22,9 +23,10 @@ def create_transaction(
     transaction: schemas.TransactionCreate,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
-    user_id: int = 1,  # ⛔ Fix: This should ideally come from authentication, not as a default
+  # ⛔ Fix: This should ideally come from authentication, not as a default
 ):
-    return crud.create_transaction(db=db, transaction=transaction, user_id=user_id)
+    #print("🔍 Current User:", current_user.__dict__)
+    return crud.create_transaction(db=db, transaction=transaction, user_id=current_user.id)
 
 # 🔵 READ all transactions for a user
 @router.get("/", response_model=List[schemas.TransactionResponse])

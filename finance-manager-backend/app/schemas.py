@@ -57,6 +57,7 @@ class TransactionCategory(str, Enum):
 
 # Base model (shared fields)
 class TransactionBase(BaseModel):
+    user_id: int  # Ensure transactions are linked to a user
     amount: float
     category: TransactionCategory
     type: TransactionType # Required field to indicate income/expense
@@ -64,8 +65,11 @@ class TransactionBase(BaseModel):
 
     #model_config = ConfigDict(arbitrary_types_allowed=True)
 # Create transaction (request body)
-class TransactionCreate(TransactionBase):
-    pass
+class TransactionCreate(BaseModel):
+    amount: float
+    category: TransactionCategory
+    type: TransactionType
+    description: Optional[str] = None
 
 # Update transaction (request body)
 class TransactionUpdate(TransactionBase):

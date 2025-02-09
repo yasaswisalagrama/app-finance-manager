@@ -77,9 +77,14 @@ def delete_user(db: Session, user_id: int):
     return db_user
 
 
-# 🟢 CREATE a new transaction
 def create_transaction(db: Session, transaction: schemas.TransactionCreate, user_id: int):
-    db_transaction = models.Transaction(**transaction.dict(), user_id=user_id)
+    db_transaction = models.Transaction(
+        user_id=user_id, 
+        amount=transaction.amount, 
+        category=transaction.category.value,  # Convert Enum to string
+        type=transaction.type.value,  # Convert Enum to string
+        description=transaction.description
+    )
     db.add(db_transaction)
     db.commit()
     db.refresh(db_transaction)
