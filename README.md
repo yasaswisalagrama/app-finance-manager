@@ -27,6 +27,36 @@ A personal finance management application to track income, expenses, and budgets
    git clone <repo-url>
    cd finance-manager-backend
    ```
+2. **Create a virtual environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Configure environment variables** (`.env` file)
+   ```ini
+   DATABASE_USER=postgres
+   DATABASE_PASSWORD=userpassword
+   POSTGRES_DB=finance_manager
+   POSTGRES_HOST=localhost
+   POSTGRES_PORT=5432
+   SECRET_KEY=userkey
+   ALGORITHM=HS256
+   ACCESS_TOKEN_EXPIRE_MINUTES=30
+   ```
+5. **Start the FastAPI server**
+   ```bash
+   uvicorn main:app --reload
+   ```
+6. **API Documentation** (Swagger UI available at)
+   ```
+   http://127.0.0.1:8000/docs
+   ```
+
+---
 
 ## Frontend (Angular)
 ### Tech Stack
