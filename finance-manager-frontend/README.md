@@ -31,7 +31,7 @@ This is the front-end of the Personal Finance Manager application built with Ang
     Then open your browser at http://localhost:4200.
 
 ### Project Structure
-src
+1.  src
 ├── index.html
 ├── main.ts
 ├── styles.scss
