@@ -1,0 +1,15 @@
+<mat-card>
+    <mat-card-title>Profile</mat-card-title>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="w-full">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Update Profile</button>
+    </form>
+  </mat-card>
+  

@@ -1,0 +1,26 @@
+<div class="analytics-container">
+  <h2 class="page-title">Analytics Overview</h2>
+  <div class="grid-container">
+    <mat-card class="analytics-card">
+      <mat-card-title>Spending by Category</mat-card-title>
+      <mat-card-content>
+        <ngx-charts-pie-chart
+          [results]="pieChartData"
+          [view]="[400,300]"
+          [legend]="true"
+          [doughnut]="false">
+        </ngx-charts-pie-chart>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="analytics-card">
+      <mat-card-title>Monthly Overview</mat-card-title>
+      <mat-card-content>
+        <ngx-charts-bar-vertical-2d
+          [results]="barChartData"
+          [view]="[400,300]"
+          [legend]="true">
+        </ngx-charts-bar-vertical-2d>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<mat-card class="dashboard-card">
+  <mat-card-header>
+    <mat-card-title class="dashboard-title">Financial Overview</mat-card-title>
+    <mat-card-subtitle>Recent Transactions Summary</mat-card-subtitle>
+  </mat-card-header>
+  
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    <div class="table-container">
+      <table mat-table [dataSource]="transactions" class="mat-elevation-z8 custom-table">
+        <!-- Type Indicator -->
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> Type </th>
+          <td mat-cell *matCellDef="let transaction">
+            <mat-chip [color]="transaction.type === 'income' ? 'primary' : 'warn'" selected>
+              {{ transaction.type | titlecase }}
+            </mat-chip>
+          </td>
+        </ng-container>
+
+        <!-- Category Column -->
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef> Category </th>
+          <td mat-cell *matCellDef="let transaction" class="category-cell">
+            <mat-icon class="category-icon">{{ getCategoryIcon(transaction.category) }}</mat-icon>
+            <span class="category-text">{{ transaction.category | titlecase }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let transaction" class="description-cell">
+            {{ transaction.description || 'No description' }}
+          </td>
+        </ng-container>
+
+        <!-- Amount Column -->
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef class="amount-header"> Amount </th>
+          <td mat-cell *matCellDef="let transaction" 
+              [class.income]="transaction.type === 'income'"
+              [class.expense]="transaction.type === 'expense'">
+            {{ transaction.amount | currency:'INR':'symbol':'1.2-2' }}
+          </td>
+        </ng-container>
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let transaction">
+            {{ transaction.updated_at | date:'MMM d, y, h:mm a' }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['type', 'category', 'description', 'amount', 'date']"
+            class="table-header"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['type', 'category', 'description', 'amount', 'date']"
+            class="table-row"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -7,6 +7,7 @@ from fastapi.openapi.utils import get_openapi
 from app.router import router  # Centralized router
 from app.database import get_db, engine, Base
 from app.routes import auth
+from fastapi.middleware.cors import CORSMiddleware
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -17,6 +18,14 @@ Base.metadata.create_all(bind=engine)
 
 # Include the centralized router
 app.include_router(router)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:4200"],  # or ["*"] to allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def test_db(db: Session = Depends(get_db)):

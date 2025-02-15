@@ -1,0 +1,35 @@
+<!-- Fixed Top Toolbar -->
+<mat-toolbar color="primary" class="header-toolbar">
+  <!-- Menu button to toggle the sidenav -->
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="app-title">Finance Manager</span>
+  <span class="spacer"></span>
+  <!-- Logout on the right end -->
+  <button mat-button (click)="logout()">Logout</button>
+</mat-toolbar>
+
+
+<mat-progress-bar *ngIf="loading" mode="indeterminate" color="accent"></mat-progress-bar>
+
+<!-- Sidenav Container (starts below the toolbar) -->
+<mat-sidenav-container class="sidenav-container">
+  <!-- Toggling side nav -->
+  <mat-sidenav #sidenav mode="over" class="sidenav">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active" (click)="sidenav.close()">Dashboard</a>
+      <a mat-list-item routerLink="/transactions" routerLinkActive="active" (click)="sidenav.close()">Transactions</a>
+      <a mat-list-item routerLink="/analytics" routerLinkActive="active" (click)="sidenav.close()">Analytics</a>
+      <a mat-list-item routerLink="/profile" routerLinkActive="active" (click)="sidenav.close()">Profile</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main content area -->
+  <mat-sidenav-content>
+    <div class="content">
+      <!-- This is where routed pages display -->
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

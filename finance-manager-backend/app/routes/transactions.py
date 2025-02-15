@@ -30,9 +30,9 @@ def create_transaction(
 
 # 🔵 READ all transactions for a user
 @router.get("/", response_model=List[schemas.TransactionResponse])
-def get_transactions(user_id: int, db: Session = Depends(get_db),current_user: User = Depends(get_current_user), skip: int = 0, limit: int = 10):
-    transactions = crud.get_transactions(db=db, user_id=user_id, skip=skip, limit=limit)
-    return transactions  # ✅ Ensures Pydantic serialization
+def get_transactions( db: Session = Depends(get_db),current_user: User = Depends(get_current_user), skip: int = 0, limit: int = 100):
+    transactions = crud.get_transactions(db=db, user_id=current_user.id, skip=skip, limit=limit)
+    return transactions 
 
 # 🟡 READ a single transaction
 @router.get("/{transaction_id}", response_model=schemas.TransactionResponse)
