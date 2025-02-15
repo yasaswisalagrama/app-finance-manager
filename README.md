@@ -47,11 +47,17 @@ A personal finance management application to track income, expenses, and budgets
    ALGORITHM=HS256
    ACCESS_TOKEN_EXPIRE_MINUTES=30
    ```
-5. **Start the FastAPI server**
+5. **Generate a secure SECRET_KEY**
+   ```bash
+   openssl rand -hex 32
+   ```
+   Replace `userkey` in the `.env` file with the generated key.
+
+6. **Start the FastAPI server**
    ```bash
    uvicorn main:app --reload
    ```
-6. **API Documentation** (Swagger UI available at)
+7. **API Documentation** (Swagger UI available at)
    ```
    http://127.0.0.1:8000/docs
    ```
