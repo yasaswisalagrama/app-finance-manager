@@ -31,76 +31,76 @@ This is the front-end of the Personal Finance Manager application built with Ang
     Then open your browser at http://localhost:4200.
 
 ### Project Structure
-1.  src
-├── index.html
-├── main.ts
-├── styles.scss
-└── app
-    ├── analytics
-    │   ├── analytics-routing.module.ts
-    │   ├── analytics.module.ts
-    │   └── analytics
-    │       ├── analytics.component.html
-    │       ├── analytics.component.scss
-    │       ├── analytics.component.spec.ts
-    │       └── analytics.component.ts
-    ├── auth
-    │   ├── auth-routing.module.ts
-    │   ├── auth.module.ts
-    │   ├── login
-    │   │   ├── login.component.html
-    │   │   ├── login.component.scss
-    │   │   ├── login.component.spec.ts
-    │   │   └── login.component.ts
-    │   ├── logout
-    │   │   ├── logout.component.html
-    │   │   ├── logout.component.scss
-    │   │   └── logout.component.ts
-    │   └── profile
-    │       ├── profile.component.html
-    │       ├── profile.component.scss
-    │       ├── profile.component.spec.ts
-    │       └── profile.component.ts
-    ├── core
-    │   ├── core.module.ts
-    │   ├── guards
-    │   │   ├── auth.guard.spec.ts
-    │   │   └── auth.guard.ts
-    │   ├── interceptors
-    │   │   ├── auth.interceptor.spec.ts
-    │   │   └── auth.interceptor.ts
-    │   └── services
-    │       ├── auth.service.spec.ts
-    │       └── auth.service.ts
-    ├── dashboard
-    │   ├── dashboard-routing.module.ts
-    │   ├── dashboard.module.ts
-    │   └── dashboard
-    │       ├── dashboard.component.html
-    │       ├── dashboard.component.scss
-    │       ├── dashboard.component.spec.ts
-    │       └── dashboard.component.ts
-    ├── shared
-    │   └── components
-    │       └── header
-    │           ├── header.component.html
-    │           ├── header.component.scss
-    │           └── header.component.ts
-    └── transactions
-        ├── transactions-routing.module.ts
-        ├── transactions.module.ts
-        ├── services
-        │   ├── transaction.service.spec.ts
-        │   └── transaction.service.ts
-        ├── transaction-dialog
-        │   ├── transaction-dialog.component.html
-        │   ├── transaction-dialog.component.scss
-        │   ├── transaction-dialog.component.spec.ts
-        │   └── transaction-dialog.component.ts
-        └── transaction-list
-            ├── transaction-list.component.html
-            ├── transaction-list.component.scss
-            ├── transaction-list.component.spec.ts
-            └── transaction-list.component.ts
+1.      src
+        ├── index.html
+        ├── main.ts
+        ├── styles.scss
+        └── app
+            ├── analytics
+            │   ├── analytics-routing.module.ts
+            │   ├── analytics.module.ts
+            │   └── analytics
+            │       ├── analytics.component.html
+            │       ├── analytics.component.scss
+            │       ├── analytics.component.spec.ts
+            │       └── analytics.component.ts
+            ├── auth
+            │   ├── auth-routing.module.ts
+            │   ├── auth.module.ts
+            │   ├── login
+            │   │   ├── login.component.html
+            │   │   ├── login.component.scss
+            │   │   ├── login.component.spec.ts
+            │   │   └── login.component.ts
+            │   ├── logout
+            │   │   ├── logout.component.html
+            │   │   ├── logout.component.scss
+            │   │   └── logout.component.ts
+            │   └── profile
+            │       ├── profile.component.html
+            │       ├── profile.component.scss
+            │       ├── profile.component.spec.ts
+            │       └── profile.component.ts
+            ├── core
+            │   ├── core.module.ts
+            │   ├── guards
+            │   │   ├── auth.guard.spec.ts
+            │   │   └── auth.guard.ts
+            │   ├── interceptors
+            │   │   ├── auth.interceptor.spec.ts
+            │   │   └── auth.interceptor.ts
+            │   └── services
+            │       ├── auth.service.spec.ts
+            │       └── auth.service.ts
+            ├── dashboard
+            │   ├── dashboard-routing.module.ts
+            │   ├── dashboard.module.ts
+            │   └── dashboard
+            │       ├── dashboard.component.html
+            │       ├── dashboard.component.scss
+            │       ├── dashboard.component.spec.ts
+            │       └── dashboard.component.ts
+            ├── shared
+            │   └── components
+            │       └── header
+            │           ├── header.component.html
+            │           ├── header.component.scss
+            │           └── header.component.ts
+            └── transactions
+                ├── transactions-routing.module.ts
+                ├── transactions.module.ts
+                ├── services
+                │   ├── transaction.service.spec.ts
+                │   └── transaction.service.ts
+                ├── transaction-dialog
+                │   ├── transaction-dialog.component.html
+                │   ├── transaction-dialog.component.scss
+                │   ├── transaction-dialog.component.spec.ts
+                │   └── transaction-dialog.component.ts
+                └── transaction-list
+                    ├── transaction-list.component.html
+                    ├── transaction-list.component.scss
+                    ├── transaction-list.component.spec.ts
+                    └── transaction-list.component.ts
 
 
