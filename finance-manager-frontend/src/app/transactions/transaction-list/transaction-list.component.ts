@@ -16,6 +16,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
+import { MatChipsModule } from '@angular/material/chips';
+ 
 
 @Component({
   selector: 'app-transaction-list',
@@ -32,7 +34,9 @@ import { CommonModule } from '@angular/common';
     MatSelectModule,
     MatRadioModule,
     MatIconModule,
-    CommonModule]
+    CommonModule,
+    MatChipsModule,
+  ]
 })
 export class TransactionListComponent implements OnInit {
   transactions: any[] = [];

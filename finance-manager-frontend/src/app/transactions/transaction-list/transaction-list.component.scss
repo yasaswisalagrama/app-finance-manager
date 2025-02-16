@@ -1,5 +1,42 @@
+.transaction-container {
+  position: relative; /* Important: makes this container the positioning context */
+  padding: 16px;
+  background: #f9f9f9;
+}
+
 .fab {
-    position: fixed;
-    bottom: 16px;
-    right: 16px;
-  }
+  position: absolute;  /* Position relative to .transaction-container */
+  bottom: 16px;
+  right: 16px;
+  z-index: 10;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.transaction-card {
+  margin-top: 40px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+}
+
+mat-header-cell, 
+mat-cell {
+  padding: 16px;
+  text-align: left;
+}
+
+mat-header-cell {
+  background-color: #ececec;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+mat-row:hover {
+  background-color: #f1f1f1;
+}

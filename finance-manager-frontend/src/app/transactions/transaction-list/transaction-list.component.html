@@ -1,25 +1,43 @@
-<div class="p-4">
-    <button mat-fab color="primary" (click)="openAddTransactionDialog()" class="fab">
-      <mat-icon>add</mat-icon>
-    </button>
-    <mat-table [dataSource]="transactions" class="mat-elevation-z8">
-      <!-- Date Column -->
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef> Date </th>
-        <td mat-cell *matCellDef="let transaction"> {{ transaction.updated_at | date:'MMM d, y, h:mm a'}} </td>
-      </ng-container>
-      <!-- Amount Column -->
-      <ng-container matColumnDef="amount">
-        <th mat-header-cell *matHeaderCellDef> Amount </th>
-        <td mat-cell *matCellDef="let transaction"> {{ transaction.amount }} </td>
-      </ng-container>
-      <!-- Category Column -->
-      <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef> Category </th>
-        <td mat-cell *matCellDef="let transaction"> {{ transaction.category }} </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="['date', 'amount', 'category']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['date', 'amount', 'category']"></tr>
-    </mat-table>
-  </div>
-  
+<div class="transaction-container">
+  <!-- Floating Action Button for Adding Transactions -->
+  <button mat-fab color="primary" (click)="openAddTransactionDialog()" class="fab">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <!-- Card Container for the Transactions Table -->
+  <mat-card class="transaction-card">
+    <mat-card-content>
+      <table mat-table [dataSource]="transactions" class="transaction-table">
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let transaction"> 
+            {{ transaction.updated_at | date:'MMM d, y, h:mm a' }} 
+          </td>
+        </ng-container>
+        
+        <!-- Amount Column -->
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef> Amount </th>
+          <td mat-cell *matCellDef="let transaction"> 
+            {{ transaction.amount | currency:'INR':'symbol':'1.2-2' }} 
+          </td>
+        </ng-container>
+        
+        <!-- Category Column -->
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef> Category </th>
+          <td mat-cell *matCellDef="let transaction">
+            <mat-chip color="accent" selected>
+              {{ transaction.category }}
+            </mat-chip>
+          </td>
+        </ng-container>
+        
+        <!-- Table Header & Rows -->
+        <tr mat-header-row *matHeaderRowDef="['date', 'amount', 'category']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['date', 'amount', 'category']"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>
