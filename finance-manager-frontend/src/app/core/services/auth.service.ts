@@ -12,7 +12,9 @@ export class AuthService {
   user$ = this.userSubject.asObservable();
   public userLoggedIn = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.userLoggedIn = this.isLoggedIn();
+  }
 
   login(email: string, password: string): Observable<any> {
     const body = new URLSearchParams();

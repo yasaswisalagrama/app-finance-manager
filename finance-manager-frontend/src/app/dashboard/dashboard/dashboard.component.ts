@@ -14,7 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule, CurrencyPipe, DatePipe, TitleCasePipe } from '@angular/common';
-
+import { trigger, transition, style, animate } from '@angular/animations';
 
 interface Transaction {
   date: string;
@@ -33,6 +33,14 @@ interface Transaction {
     MatChipsModule,
     MatDividerModule, 
   ], providers: [DatePipe, CurrencyPipe, TitleCasePipe],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-20px)' }),
+        animate('400ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ]
 })
 export class DashboardComponent implements OnInit {
   transactions: any;
