@@ -1,4 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background: linear-gradient(135deg, #74ABE2, #5563DE);
+
+}
+
+/* In your global styles or a component's style if view encapsulation is disabled */
+body app-root mat-sidenav-container {
+    background: linear-gradient(135deg, #74ABE2, #5563DE);
+}

@@ -1,0 +1,48 @@
+/* Apply a full-viewport gradient background */
+:host {
+    display: block;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #74ABE2, #5563DE);
+  }
+  
+  /* Center the signup form */
+  .signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  /* Style the Material card with a subtle overlay gradient */
+  mat-card {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+  
+  /* Centered title styling */
+  .card-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  
+  /* Ensure form fields are full width */
+  .full-width {
+    width: 100%;
+  }
+  
+  /* Style the submit button */
+  .submit-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
+  

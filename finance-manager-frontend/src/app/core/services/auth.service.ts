@@ -10,6 +10,7 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
   private userSubject = new BehaviorSubject<any>(null);
   user$ = this.userSubject.asObservable();
+  public userLoggedIn = false;
 
   constructor(private http: HttpClient) {}
 
@@ -17,7 +18,7 @@ export class AuthService {
     const body = new URLSearchParams();
     body.set('username', email);  // Map email to username
     body.set('password', password);
-  
+    this.userLoggedIn = true;
     const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     return this.http.post<any>(`${environment.apiBaseUrl}/auth/login`, body.toString(), { headers }).pipe(
       tap(res => {
@@ -46,6 +47,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('jwt_token');
+    this.userLoggedIn = false;
     this.userSubject.next(null);
   }
 }

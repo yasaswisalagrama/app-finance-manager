@@ -14,6 +14,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -29,7 +31,8 @@ import { CommonModule } from '@angular/common';
     MatNativeDateModule,
     MatSelectModule,
     MatRadioModule,
-    MatIconModule, ReactiveFormsModule,CommonModule ]
+    MatIconModule, ReactiveFormsModule,CommonModule,
+    RouterModule ]
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
@@ -43,7 +46,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       password: ['', Validators.required]
     });
   }

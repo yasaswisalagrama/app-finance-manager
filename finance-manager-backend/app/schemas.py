@@ -24,7 +24,7 @@ class UserResponse(UserBase):
 
 # Schema for creating a new user
 class UserCreate(UserBase):
-    password: str = Field(..., min_length=8)  # Plain password, will be hashed later
+    password: str = Field(..., min_length=6)  # Plain password, will be hashed later
 
 # Schema for updating a user (all fields optional)
 class UserUpdate(BaseModel):

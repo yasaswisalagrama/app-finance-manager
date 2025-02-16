@@ -29,10 +29,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
   @Input() sidenav!: MatSidenav;
   loading: boolean = false;
   
+
   ngOnInit(): void {
     // Subscribe to router events to display a loader during navigation
     this.router.events.subscribe((event: Event) => {
@@ -48,7 +49,7 @@ export class HeaderComponent {
   logout(): void {
     // Navigate to the logout route; LogoutComponent will handle token removal and redirect.
     console.log("Logging out...");
-    
+    this.authService.logout();
     this.router.navigate(['/auth/logout']);
   }
   

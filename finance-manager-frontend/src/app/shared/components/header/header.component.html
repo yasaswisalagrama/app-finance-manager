@@ -7,7 +7,7 @@
   <span class="app-title">Finance Manager</span>
   <span class="spacer"></span>
   <!-- Logout on the right end -->
-  <button mat-button (click)="logout()">Logout</button>
+  <button mat-button *ngIf="authService.userLoggedIn" (click)="logout()">Logout</button>
 </mat-toolbar>
 
 

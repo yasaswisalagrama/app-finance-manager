@@ -8,8 +8,8 @@ from app.dependencies import get_current_user  # Import auth dependency
 
 router = APIRouter()
 
-@router.post("/", response_model=UserResponse)
-def create_new_user(user: UserCreate,current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+@router.post("/signup", response_model=UserResponse)
+def create_new_user(user: UserCreate, db: Session = Depends(get_db)):
     """Create a new user"""
     db_user = create_user(db=db, user=user)
     if db_user is None:

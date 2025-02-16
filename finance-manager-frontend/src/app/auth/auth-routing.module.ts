@@ -8,7 +8,11 @@ import { LogoutComponent } from './logout/logout.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent , canActivate: [AuthGuard]},
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { 
+    path: 'signup', 
+    loadComponent: () => import('./signup/signup.component').then(m => m.SignupComponent)
+  }
 ];
 
 @NgModule({
