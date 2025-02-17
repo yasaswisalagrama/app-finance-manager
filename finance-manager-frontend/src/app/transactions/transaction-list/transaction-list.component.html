@@ -5,6 +5,12 @@
   </button>
 
   <!-- Card Container for the Transactions Table -->
+  <mat-card-header>
+    <div class="transactions-header">
+      <mat-card-title class="transactions-title">Transactions List</mat-card-title>
+    </div>
+  </mat-card-header>
+
   <mat-card class="transaction-card">
     <mat-card-content>
       <table mat-table [dataSource]="transactions" class="transaction-table">

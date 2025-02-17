@@ -16,10 +16,12 @@ import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule, CurrencyPipe, DatePipe, TitleCasePipe } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
 
-interface Transaction {
-  date: string;
-  amount: number;
+export interface Transaction {
+  type: 'income' | 'expense';
   category: string;
+  description: string;
+  amount: number;
+  updated_at: Date;
 }
 @Component({
   selector: 'app-dashboard',
@@ -43,9 +45,41 @@ interface Transaction {
   ]
 })
 export class DashboardComponent implements OnInit {
-  transactions: any;
+  transactions: Transaction[] = [];
+  totalIncome: number = 0;
+  totalExpense: number = 0;
+  balance: number = 0;
 
   constructor(private transactionService: TransactionService) {}
+
+  ngOnInit(): void {
+    // Subscribe to transactions and calculate the summary once the data is loaded
+    this.transactionService.getTransactions().subscribe(
+      (data: Transaction[]) => {
+        this.transactions = data;
+        this.calculateSummary();
+      },
+      error => {
+        console.error('Error loading transactions:', error);
+      }
+    );
+  }
+
+  calculateSummary(): void {
+    this.totalIncome = 0;
+    this.totalExpense = 0;
+
+    // Iterate over the loaded transactions
+    this.transactions.forEach((transaction: Transaction) => {
+      if (transaction.type === 'income') {
+        this.totalIncome += transaction.amount;
+      } else if (transaction.type === 'expense') {
+        this.totalExpense += transaction.amount;
+      }
+    });
+
+    this.balance = this.totalIncome - this.totalExpense;
+  }
 
   getCategoryIcon(category: string): string {
     const icons: { [key: string]: string } = {
@@ -54,15 +88,8 @@ export class DashboardComponent implements OnInit {
       transportation: 'directions_car',
       entertainment: 'sports_esports',
       utilities: 'flash_on',
-      healthcare: 'local_hospital',
-      // Add more mappings as needed
+      healthcare: 'local_hospital'
     };
     return icons[category.toLowerCase()] || 'category';
-  }
-
-  ngOnInit(): void {
-    this.transactionService.getTransactions().subscribe(data => {
-      this.transactions = data;
-    });
   }
 }

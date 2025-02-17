@@ -20,3 +20,8 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     expire = datetime.utcnow() + (expires_delta if expires_delta else timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+# import secrets
+
+# secret_key = secrets.token_hex(32)  # Generates a 64-character (32-byte) hex key
+# print(secret_key)

@@ -40,3 +40,15 @@ mat-header-cell {
 mat-row:hover {
   background-color: #f1f1f1;
 }
+
+.transactions-header {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.transactions-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #3f51b5;
+  margin-bottom: 5px;
+}
