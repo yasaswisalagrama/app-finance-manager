@@ -44,7 +44,7 @@ export class AuthService {
   }
 
   getProfile(): Observable<any> {
-    return this.http.get<any>(`${environment.apiBaseUrl}/users/me`);
+    return this.http.get<any>(`${environment.apiBaseUrl}/user/me`);
   }
 
   logout(): void {
