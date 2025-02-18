@@ -12,40 +12,65 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { MatDivider, MatDividerModule } from '@angular/material/divider';
+import { CommonModule, DatePipe } from '@angular/common';
+
+export interface UserProfile {
+  username: string;
+  email: string;
+  full_name: string;
+  id: number;
+  created_at: Date;
+  updated_at: Date;
+}
+
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  imports: [MatCardModule,
+  imports: [
+    MatCardModule,
+    MatDividerModule,
     MatFormFieldModule,
-    MatDialogModule,
     MatInputModule,
     MatButtonModule,
-    MatTableModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatIconModule,ReactiveFormsModule ]
+    ReactiveFormsModule,
+    CommonModule,
+    DatePipe
+   ]
 })
 export class ProfileComponent implements OnInit {
   profileForm!: FormGroup;
+  user!: UserProfile;
 
   constructor(private authService: AuthService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.authService.getProfile().subscribe(user => {
-      this.profileForm = this.fb.group({
-        email: [{ value: user.email, disabled: true }, [Validators.required, Validators.email]],
-        name: [user.name, Validators.required]
-      });
+    // Load user profile and then initialize the form.
+    this.authService.getProfile().subscribe((user: UserProfile) => {
+      console.log('User profile:', user);
+      this.user = user;
+      this.initializeForm();
     });
   }
 
+  /**
+   * Initialize the profile form with user data.
+   */
+  initializeForm(): void {
+    this.profileForm = this.fb.group({
+      email: [{ value: this.user.email, disabled: true }, [Validators.required, Validators.email]],
+      name: [this.user.full_name, Validators.required]
+    });
+  }
+
+  /**
+   * Called when the form is submitted.
+   */
   onSubmit(): void {
     if (this.profileForm.valid) {
-      // Implement update profile logic here
+      // Implement update profile logic here (e.g., send update request to backend)
       console.log('Profile updated:', this.profileForm.value);
     }
   }

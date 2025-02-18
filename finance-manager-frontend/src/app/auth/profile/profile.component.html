@@ -1,15 +1,52 @@
-<mat-card>
+<mat-card class="profile-card">
+  <mat-card-header>
     <mat-card-title>Profile</mat-card-title>
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-      <mat-form-field class="w-full">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name">
-      </mat-form-field>
-      <mat-form-field class="w-full">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email">
-      </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">Update Profile</button>
-    </form>
-  </mat-card>
+  </mat-card-header>
   
+  <mat-divider></mat-divider>
+  
+  <mat-card-content>
+    <!-- User Details Section -->
+    <div class="profile-details">
+      <div class="profile-row">
+        <span class="profile-label">Username:</span>
+        <span class="profile-value">{{ user?.username }}</span>
+      </div>
+      <div class="profile-row">
+        <span class="profile-label">Full Name:</span>
+        <span class="profile-value">{{ user?.full_name }}</span>
+      </div>
+      <div class="profile-row">
+        <span class="profile-label">Email:</span>
+        <span class="profile-value">{{ user?.email }}</span>
+      </div>
+      <div class="profile-row">
+        <span class="profile-label">Created At:</span>
+        <span class="profile-value">{{ user?.created_at | date:'medium' }}</span>
+      </div>
+      <div class="profile-row">
+        <span class="profile-label">Updated At:</span>
+        <span class="profile-value">{{ user?.updated_at | date:'medium' }}</span>
+      </div>
+    </div>
+    
+    <mat-divider class="section-divider"></mat-divider>
+    
+    <!-- Update Profile Form -->
+    <div class="profile-form-container">
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Full Name</mat-label>
+          <input matInput formControlName="name" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">
+          Update Profile
+        </button>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>
