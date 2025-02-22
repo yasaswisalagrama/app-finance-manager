@@ -1,71 +1,203 @@
-/* Center the entire content vertically and horizontally */
-.login-container {
+.login-page-container {
   display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Align items from the top */
   min-height: 100vh;
-  background: #f0f2f5;
-  padding: 16px;
-}
+  flex-direction: column; // Mobile first approach
+  overflow: hidden;
 
-.login-card {
-  width: 100%;
-  max-width: 350px;
-  padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  margin-top: 15vh; /* Adjust this value as needed to position the card a bit from the top */
-}
-
-
-/* The form is stacked vertically with consistent gap */
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 100%;
-}
-
-/* Form fields take full width */
-.mat-form-field {
-  width: 100%;
-}
-
-/* Button container centers the button */
-.button-container {
-  width: 100%;
-  text-align: center;
-  margin-top: 8px;
-}
-
-/* Error message styling */
-.error-message {
-  color: #d32f2f;
-  margin-top: 12px;
-  text-align: center;
-}
-
-/* Signup link styling */
-.signup-link {
-  text-align: center;
-  margin-top: 16px;
-  :hover {
-    text-decoration: underline;
-    cursor: pointer;
-    color: black;
+  @media (min-width: 768px) {
+    flex-direction: row; // Switch to row layout on tablets and up
+    height: 100vh;
   }
 }
 
-.signup-link a {
-  text-decoration: none;
-  color: #3f51b5;
-  font-weight: bold;
+.left-video-container {
+  position: relative;
+  background: #000;
+  flex: 1 1 100%; // Mobile full width
+  min-height: 40vh; // Give some height on mobile
+  
+  // Desktop styles
+  @media (min-width: 768px) {
+    flex: 0 0 65%;
+    min-height: 100%;
+  }
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .video-overlay-text { 
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink {
+      50% { border-right-color: transparent; }
+      to { border-right-color: white; }
+    }
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid white;
+    animation: typing 2.5s steps(40, end) forwards, blink 0.75s step-end infinite;
+    position: absolute;
+    bottom: 35%;
+    left: 10%;
+    color: white;
+    z-index: 1;
+    
+    // Center text on mobile
+    @media (max-width: 767px) {
+      width: 100%;
+      text-align: center;
+      left: 0;
+      padding: 0 20px;
+    }
+
+    .welcome-text {
+      font-size: 18px;
+      line-height: 1.2;
+      opacity: 0.9;
+      
+      @media (min-width: 768px) {
+        font-size: 24px;
+      }
+    }
+
+    .app-name {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.3;
+      
+      @media (min-width: 768px) {
+        font-size: 32px;
+      }
+    }
+  }
+
+  // Gradient overlay
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  }
 }
 
-/* Center card titles */
-.mat-mdc-card-title,
-.mat-mdc-card-subtitle {
+.right-login-container {
+  flex: 1 1 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f2f5;
+  padding: 20px;
+  z-index: 2; // Ensure form stays above video on mobile
+  
+  @media (min-width: 768px) {
+    flex: 0 0 35%;
+    padding: 40px;
+  }
+}
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background: white;
+  margin: 20px 0;
+
+  .mat-mdc-card-title {
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 8px;
+    
+    @media (min-width: 768px) {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+  }
+}
+// Responsive adjustments
+@media (max-width: 767px) {
+  .login-page-container {
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .left-video-container {
+    flex-shrink: 0;
+  }
+
+  .right-login-container {
+    flex-grow: 1;
+    min-height: 60vh;
+  }
+}
+
+.login-form {
   display: flex;
   flex-direction: column;
-  font-weight: 550;
+  gap: 24px;
+  width: 100%;
+
+  mat-form-field {
+    width: 100%;
+    
+    .mat-mdc-form-field-infix {
+      padding: 8px 0 !important;
+    }
+    
+    .mat-mdc-text-field-wrapper {
+      border-radius: 8px !important;
+    }
+    
+    input.mat-input-element {
+      font-size: 16px;
+      padding: 4px 0;
+    }
+  }
+
+  .button-container {
+    width: 100%;
+    margin-top: 8px;
+    
+    button {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      border-radius: 8px;
+      
+      @media (min-width: 768px) {
+        padding: 12px 0;
+      }
+    }
+  }
+
+  .error-message {
+    text-align: center;
+    font-size: 14px;
+    margin: -8px 0 4px 0;
+    line-height: 1.4;
+  }
+
+  .signup-link {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 12px;
+    
+    a {
+      transition: color 0.2s ease;
+      &:hover {
+        color: #2d814e;
+      }
+    }
+  }
 }

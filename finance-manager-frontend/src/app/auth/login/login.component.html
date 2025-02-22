@@ -1,25 +1,42 @@
-<div class="login-container">
-  <mat-card class="login-card">
-    <mat-card-title>Login</mat-card-title>
-    <br>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Username or Email</mat-label>
-        <input matInput type="text" formControlName="email">
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password">
-      </mat-form-field>
-      <div class="button-container">
-        <button mat-raised-button color="primary" type="submit">Login</button>
-      </div>
-      <div *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
-      </div>
-      <div class="signup-link">
-        Don't have an account? <a routerLink="/auth/signup">Sign Up</a>
-      </div>
-    </form>
-  </mat-card>
+<div class="login-page-container">
+  <!-- Left Video Section -->
+  <div class="left-video-container">
+    <video class="background-video" autoplay muted loop>
+      <source src="assets/money-rotating-video.mp4" type="video/mp4">
+      
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay-text">
+      <div class="welcome-text">Welcome to</div>
+      <div class="app-name">Finance Manager</div>
+    </div>
+  </div>
+
+  <!-- Right Login Section -->
+  <div class="right-login-container">
+    <div class="login-card">
+      <mat-card-title>Login</mat-card-title>
+      <br><br>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Username or Email</mat-label>
+          <input matInput type="text" formControlName="email">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password">
+        </mat-form-field>
+        <div class="button-container">
+          <button mat-raised-button color="primary" type="submit">Login</button>
+        </div>
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+        <div class="signup-link">
+          Don't have an account? <a routerLink="/auth/signup">Sign Up</a>
+        </div>
+        
+      </form>
+    </div>
+  </div>
 </div>
