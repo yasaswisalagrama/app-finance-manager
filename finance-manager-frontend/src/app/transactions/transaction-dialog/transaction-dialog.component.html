@@ -1,35 +1,67 @@
 <h2 mat-dialog-title>{{ data.transaction ? 'Edit' : 'Add' }} Transaction</h2>
 <mat-dialog-content [formGroup]="transactionForm">
-  <mat-form-field class="w-full">
-    <mat-label>Amount</mat-label>
-    <input matInput type="number" formControlName="amount">
-  </mat-form-field>
-  <mat-form-field class="w-full">
-    <mat-label>Category</mat-label>
-    <mat-select formControlName="category">
-      <mat-option value="Food">Food</mat-option>
-      <mat-option value="Transport">Transport</mat-option>
-      <mat-option value="Bills">Bills</mat-option>
-      <mat-option value="Entertainment">Entertainment</mat-option>
-      <mat-option value="Shopping">Shopping</mat-option>
-      <mat-option value="Salary">Salary</mat-option>
-      <mat-option value="Investment">Investment</mat-option>
-      <mat-option value="Other">Other</mat-option>
-    </mat-select>
-  </mat-form-field>  
-  <div class="type-group">
-    <label>Type:</label>
-    <mat-radio-group formControlName="type">
-      <mat-radio-button value="income">Income</mat-radio-button>
-      <mat-radio-button value="expense">Expense</mat-radio-button>
-    </mat-radio-group>
+  <div class="dialog-content">
+    <!-- PDF Upload Section -->
+    <div class="pdf-upload-section">
+      <input type="file" #pdfInput hidden (change)="onFileSelected($event)" accept="application/pdf">
+      <button mat-stroked-button type="button" (click)="pdfInput.click()">
+        <mat-icon>upload</mat-icon> Upload PDF Statement
+      </button>
+      <div class="upload-status">
+        <span *ngIf="isProcessing">Processing PDF... <mat-spinner diameter="20"></mat-spinner></span>
+        <span *ngIf="selectedFile" class="file-name">{{ selectedFile?.name }}</span>
+      </div>
+    </div>
+
+    <!-- Form Rows -->
+    <div class="form-container">
+      <!-- Amount and Category -->
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Amount</mat-label>
+          <input matInput type="number" formControlName="amount" required>
+          <mat-error *ngIf="transactionForm.get('amount')?.hasError('required')">
+            Amount is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category" required>
+            <mat-option value="Food">Food</mat-option>
+            <mat-option value="Transport">Transport</mat-option>
+            <mat-option value="Bills">Bills</mat-option>
+            <mat-option value="Entertainment">Entertainment</mat-option>
+            <mat-option value="Shopping">Shopping</mat-option>
+            <mat-option value="Salary">Salary</mat-option>
+            <mat-option value="Investment">Investment</mat-option>
+            <mat-option value="Other">Other</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Transaction Type and Description -->
+      <div class="form-row">
+        <div class="type-group">
+          <label>Transaction Type:</label>
+          <mat-radio-group formControlName="type" class="radio-group">
+            <mat-radio-button class="radio-button" value="income">Income</mat-radio-button>
+            <mat-radio-button class="radio-button" value="expense">Expense</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" rows="3"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
   </div>
-  <mat-form-field class="w-full">
-    <mat-label>Description</mat-label>
-    <textarea matInput formControlName="description"></textarea>
-  </mat-form-field>
 </mat-dialog-content>
-<mat-dialog-actions>
+
+<mat-dialog-actions align="end">
   <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-raised-button color="primary" (click)="onSave()">Save</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="transactionForm.invalid">
+    {{ data.transaction ? 'Update' : 'Save' }}
+  </button>
 </mat-dialog-actions>

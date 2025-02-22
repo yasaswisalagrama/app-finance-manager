@@ -1,40 +1,71 @@
+/* Center the entire content vertically and horizontally */
 .login-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Align items at the top of the container */
+  align-items: flex-start; /* Align items from the top */
   min-height: 100vh;
-  padding-top: 18vh; /* Push the card a little above center */
-  background: #f0f2f5; /* Light background color */
-}
-
-.login-card {
-  width: 400px;
+  background: #f0f2f5;
   padding: 16px;
 }
 
+.login-card {
+  width: 100%;
+  max-width: 350px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 15vh; /* Adjust this value as needed to position the card a bit from the top */
+}
+
+
+/* The form is stacked vertically with consistent gap */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Form fields take full width */
 .mat-form-field {
   width: 100%;
-  margin-bottom: 16px;
 }
 
+/* Button container centers the button */
 .button-container {
+  width: 100%;
   text-align: center;
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
+/* Error message styling */
 .error-message {
-  color: red;
+  color: #d32f2f;
   margin-top: 12px;
   text-align: center;
 }
 
+/* Signup link styling */
 .signup-link {
   text-align: center;
-  margin-top: 15px;
+  margin-top: 16px;
+  :hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: black;
+  }
 }
 
 .signup-link a {
   text-decoration: none;
   color: #3f51b5;
   font-weight: bold;
+}
+
+/* Center card titles */
+.mat-mdc-card-title,
+.mat-mdc-card-subtitle {
+  display: flex;
+  flex-direction: column;
+  font-weight: 550;
 }

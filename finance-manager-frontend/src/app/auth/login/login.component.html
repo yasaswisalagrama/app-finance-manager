@@ -1,7 +1,8 @@
 <div class="login-container">
   <mat-card class="login-card">
     <mat-card-title>Login</mat-card-title>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <br>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Username or Email</mat-label>
         <input matInput type="text" formControlName="email">
