@@ -8,11 +8,10 @@ body {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    background: linear-gradient(135deg, #49a099, #489b9e);
-
+    background: linear-gradient(135deg, #000, #fff);
 }
 
 /* In your global styles or a component's style if view encapsulation is disabled */
 body app-root mat-sidenav-container {
-    background: linear-gradient(135deg, #49a099, #489b9e);
+    background: linear-gradient(135deg, #000, #fff);
 }
