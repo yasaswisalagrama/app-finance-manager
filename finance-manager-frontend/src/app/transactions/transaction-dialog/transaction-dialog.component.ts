@@ -1,3 +1,4 @@
+// transaction-dialog.component.ts
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,8 +13,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { PdfParserService } from '../services/pdf-parser.service';
 import { CommonModule, NgIf } from '@angular/common';
+import { TransactionService } from '../services/transaction.service';
 
 @Component({
   selector: 'app-transaction-dialog',
@@ -45,7 +46,7 @@ export class TransactionDialogComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private pdfParser: PdfParserService,
+    private transactionService: TransactionService,
     public dialogRef: MatDialogRef<TransactionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { transaction: any }
   ) {
@@ -74,32 +75,43 @@ export class TransactionDialogComponent implements OnInit {
     if (file && file.type === 'application/pdf') {
       this.selectedFile = file;
       this.isProcessing = true;
+
+      // Prepare FormData to send the PDF file to the backend.
+      const formData = new FormData();
+      formData.append('pdf', file);
       
-      this.pdfParser.parsePdf(file).then(transactions => {
-        if (transactions.length > 0) {
-          const latest = transactions[0];
-          this.transactionForm.patchValue({
-            amount: latest.amount,
-            category: latest.category,
-            type: latest.type,
-            description: latest.description
-          });
+      // Optionally, add other form fields if needed.
+      // For example: formData.append('transactionId', '12345');
+
+      // Immediately send the file to the backend.
+      this.transactionService.addTransaction(formData).subscribe(
+        (response) => {
+          console.log('PDF sent successfully:', response);
+          // Optionally, update the form with details returned from backend.
+          if (response && response.transaction) {
+            const transaction = response.transaction;
+            this.transactionForm.patchValue({
+              amount: transaction.amount,
+              category: transaction.category,
+              type: transaction.type,
+              description: transaction.description,
+            });
+          }
+          this.isProcessing = false;
+        },
+        (error) => {
+          console.error('Error sending PDF:', error);
+          this.isProcessing = false;
         }
-        this.isProcessing = false;
-      }).catch(error => {
-        console.error('PDF processing error:', error);
-        this.isProcessing = false;
-      });
+      );
     }
   }
 
   onSave(): void {
+    // If you have additional details to save along with the transaction,
+    // you can use this method to close the dialog with the form data.
     if (this.transactionForm.valid) {
-      const transactionData = {
-        ...this.transactionForm.value,
-        date: new Date()
-      };
-      this.dialogRef.close(transactionData);
+      this.dialogRef.close(this.transactionForm.value);
     }
   }
 

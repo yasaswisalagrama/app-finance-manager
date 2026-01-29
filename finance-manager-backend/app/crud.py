@@ -90,15 +90,15 @@ def create_transaction(db: Session, transaction: schemas.TransactionCreate, user
     db.refresh(db_transaction)
     return db_transaction
 
-# 🔵 READ all transactions for a user
+# READ all transactions for a user
 def get_transactions(db: Session, user_id: int, skip: int = 0, limit: int = 10):
     return db.query(models.Transaction).filter(models.Transaction.user_id == user_id).offset(skip).limit(limit).all()
 
-# 🟡 READ a single transaction by ID
+# READ a single transaction by ID
 def get_transaction(db: Session, transaction_id: int):
     return db.query(models.Transaction).filter(models.Transaction.id == transaction_id).first()
 
-# 🟠 UPDATE a transaction
+# UPDATE a transaction
 def update_transaction(db: Session, transaction_id: int, transaction_update: schemas.TransactionUpdate):
     db_transaction = db.query(models.Transaction).filter(models.Transaction.id == transaction_id).first()
     if db_transaction:
@@ -108,7 +108,7 @@ def update_transaction(db: Session, transaction_id: int, transaction_update: sch
         db.refresh(db_transaction)
     return db_transaction
 
-# 🔴 DELETE a transaction
+# DELETE a transaction
 def delete_transaction(db: Session, transaction_id: int):
     db_transaction = db.query(models.Transaction).filter(models.Transaction.id == transaction_id).first()
     if db_transaction:
